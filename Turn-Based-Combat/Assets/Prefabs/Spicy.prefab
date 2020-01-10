@@ -125,7 +125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Sweet
   unitLevel: 1
-  damage: 9
+  unitFlavor: 3
+  attack: 0
   defense: 7
   speed: 5
   maxHP: 25

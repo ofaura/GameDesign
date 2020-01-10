@@ -125,7 +125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Sour
   unitLevel: 1
-  damage: 6
+  unitFlavor: 2
+  attack: 0
   defense: 8
   speed: 10
   maxHP: 25
