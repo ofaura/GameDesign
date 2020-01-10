@@ -108,6 +108,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
+        enemyUnit.ChooseMinion();
         dialogueText.text = enemyUnit.name + " attacks!";
 
         yield return new WaitForSeconds(1f);

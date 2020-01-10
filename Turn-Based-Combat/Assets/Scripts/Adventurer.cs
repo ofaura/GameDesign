@@ -23,12 +23,6 @@ public class Adventurer : MonoBehaviour
         ReStartAdventurer();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void ReStartAdventurer()
     {
         currentHP = maxHP;
@@ -39,6 +33,34 @@ public class Adventurer : MonoBehaviour
         spicy_minion.ChangeLevel(LvL);
         bitter_minion.ChangeLevel(LvL);
         sweet_minion.ChangeLevel(LvL);
+    }
+
+    public void ChooseMinion()
+    {
+        int minion = Random.Range(0, 4);
+
+        switch ((Unit.Flavor)minion)
+        {
+            case Unit.Flavor.SALTY:
+                selected_minion = salty_minion;
+            break;
+
+            case Unit.Flavor.SOUR:
+                selected_minion = sour_minion;
+            break;
+
+            case Unit.Flavor.SPICY:
+                selected_minion = spicy_minion;
+            break;
+
+            case Unit.Flavor.BITTER:
+                selected_minion = bitter_minion;
+            break;
+
+            case Unit.Flavor.SWEET:
+                selected_minion = sweet_minion;
+            break;
+        }
     }
 
 
