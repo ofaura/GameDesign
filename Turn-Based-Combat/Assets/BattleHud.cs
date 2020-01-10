@@ -9,10 +9,10 @@ public class BattleHud : MonoBehaviour
     public Text levelText;
     public Slider hpSlider;
 
-    public void SetHUD(Unit unit)
+    public void SetHUD(Adventurer unit)
     {
-        nameText.text = unit.unitName;
-        levelText.text = "Lvl " + unit.unitLevel;
+        nameText.text = unit.name;
+        levelText.text = "Lvl " + unit.LvL;
         hpSlider.maxValue = unit.maxHP;
         hpSlider.value = unit.currentHP;
     }

@@ -13,8 +13,12 @@ public class BattleSystem : MonoBehaviour
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
 
-    Unit playerUnit;
-    Unit enemyUnit;
+    //Unit playerUnit;
+    //Unit enemyUnit;
+
+    //Changed to adventurers since they have the health and manage the minions + we pack AI & reinitialization in 1 class
+    Adventurer playerUnit;
+    Adventurer enemyUnit;
 
     public Text dialogueText;
 
@@ -37,13 +41,15 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator SetupBattle()
     {
-        GameObject playerGO = Instantiate(playerPrefab[index], playerBattleStation);
-        playerUnit = playerGO.GetComponent<Unit>();
+        //GameObject playerGO = Instantiate(playerPrefab[index], playerBattleStation);
+        GameObject playerGO = GameObject.Find("Player");
+        playerUnit = playerGO.GetComponent<Adventurer>();
 
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
-        enemyUnit = enemyGO.GetComponent<Unit>();
+        //GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
+        GameObject enemyGO = GameObject.Find("Enemy");
+        enemyUnit = enemyGO.GetComponent<Adventurer>();
 
-        dialogueText.text = "A wild " + enemyUnit.unitName + " approaches...";
+        dialogueText.text = "A wild " + enemyUnit.name + " approaches...";
 
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
@@ -61,7 +67,14 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
-        bool isDead = enemyUnit.TakeDamage(playerUnit);
+        float damage_taken = enemyUnit.selected_minion.CalculateTakenDamage(playerUnit.selected_minion);
+        enemyUnit.currentHP -= damage_taken;
+
+        bool isDead = false;
+        if (enemyUnit.currentHP <= 0)
+            isDead = true;
+        else
+            isDead = false;
 
         enemyHUD.SetHP(enemyUnit.currentHP);
         dialogueText.text = "The attack is successful!";
@@ -82,7 +95,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerHeal()
     {
-        playerUnit.Heal(5);
+        playerUnit.selected_minion.Heal(5);
 
         playerHUD.SetHP(playerUnit.currentHP);
         dialogueText.text = "You feel renewed strength!";
@@ -95,11 +108,18 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        dialogueText.text = enemyUnit.unitName + " attacks!";
+        dialogueText.text = enemyUnit.name + " attacks!";
 
         yield return new WaitForSeconds(1f);
 
-        bool isDead = playerUnit.TakeDamage(enemyUnit);
+        float damage_taken = playerUnit.selected_minion.CalculateTakenDamage(enemyUnit.selected_minion);
+        playerUnit.currentHP -= damage_taken;
+
+        bool isDead = false;
+        if (enemyUnit.currentHP <= 0)
+            isDead = true;
+        else
+            isDead = false;
 
         playerHUD.SetHP(playerUnit.currentHP);
 
