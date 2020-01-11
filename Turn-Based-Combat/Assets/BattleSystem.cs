@@ -13,6 +13,9 @@ public class BattleSystem : MonoBehaviour
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
 
+    public bool bot_vs_bot;
+    public bool extracting_simulation_data; // If we are doing 1000 simulations to quickly get data, we don't want to wait between attacks & attack automatically
+
     //Unit playerUnit;
     //Unit enemyUnit;
 
@@ -63,12 +66,21 @@ public class BattleSystem : MonoBehaviour
     void PlayerTurn()
     {
         dialogueText.text = "Choose an action:";
+
+        //Add resting rounds for minions
+        ManageMinionRest(enemyUnit);
+        ManageMinionRest(playerUnit);
     }
 
     IEnumerator PlayerAttack()
     {
         //We reveal the minion chosen by the enemy
         enemyUnit.ChooseMinion();
+        if (bot_vs_bot) //If the combat is simulated or spected by the player
+        {
+            playerUnit.ChooseMinion();
+
+        }
 
         float damage_taken = enemyUnit.selected_minion.CalculateTakenDamage(playerUnit.selected_minion);
         enemyUnit.currentHP -= damage_taken;
@@ -139,63 +151,67 @@ public class BattleSystem : MonoBehaviour
             PlayerTurn();
         }
 
-        //Add resting rounds for minions
-        if (enemyUnit.salty_minion.resting)
-        {
-            if (enemyUnit.salty_minion.rounds_resting >= enemyUnit.salty_minion.required_rounds_to_rest)
-            {
-                enemyUnit.salty_minion.resting = false;
-                enemyUnit.salty_minion.rounds_resting = 0;
-                enemyUnit.salty_minion.transform.GetChild(1).gameObject.SetActive(false);
-            }
-            else
-                enemyUnit.salty_minion.rounds_resting++;
-        }
-        if (enemyUnit.sour_minion.resting)
-        {
-            if (enemyUnit.sour_minion.rounds_resting >= enemyUnit.sour_minion.required_rounds_to_rest)
-            {
-                enemyUnit.sour_minion.resting = false;
-                enemyUnit.sour_minion.rounds_resting = 0;
-                enemyUnit.sour_minion.transform.GetChild(1).gameObject.SetActive(false);
-            }
-            else
-                enemyUnit.sour_minion.rounds_resting++;
-        }
-        if (enemyUnit.spicy_minion.resting)
-        {
-            if (enemyUnit.spicy_minion.rounds_resting >= enemyUnit.spicy_minion.required_rounds_to_rest)
-            {
-                enemyUnit.spicy_minion.resting = false;
-                enemyUnit.spicy_minion.rounds_resting = 0;
-                enemyUnit.spicy_minion.transform.GetChild(1).gameObject.SetActive(false);
-            }
-            else
-                enemyUnit.spicy_minion.rounds_resting++;
-        }
-        if (enemyUnit.bitter_minion.resting)
-        {
-            if (enemyUnit.bitter_minion.rounds_resting >= enemyUnit.bitter_minion.required_rounds_to_rest)
-            {
-                enemyUnit.bitter_minion.resting = false;
-                enemyUnit.bitter_minion.rounds_resting = 0;
-                enemyUnit.bitter_minion.transform.GetChild(1).gameObject.SetActive(false);
-            }
-            else
-                enemyUnit.bitter_minion.rounds_resting++;
-        }
-        if (enemyUnit.sweet_minion.resting)
-        {
-            if (enemyUnit.sweet_minion.rounds_resting >= enemyUnit.sweet_minion.required_rounds_to_rest)
-            {
-                enemyUnit.sweet_minion.resting = false;
-                enemyUnit.sweet_minion.rounds_resting = 0;
-                enemyUnit.sweet_minion.transform.GetChild(1).gameObject.SetActive(false);
-            }
-            else
-                enemyUnit.sweet_minion.rounds_resting++;
-        }
+        
+    }
 
+    public void ManageMinionRest(Adventurer unit)
+    {
+        //Add resting rounds for minions
+        if (unit.salty_minion.resting)
+        {
+            if (unit.salty_minion.rounds_resting >= unit.salty_minion.required_rounds_to_rest)
+            {
+                unit.salty_minion.resting = false;
+                unit.salty_minion.rounds_resting = 0;
+                unit.salty_minion.transform.GetChild(1).gameObject.SetActive(false);
+            }
+            else
+                unit.salty_minion.rounds_resting++;
+        }
+        if (unit.sour_minion.resting)
+        {
+            if (unit.sour_minion.rounds_resting >= unit.sour_minion.required_rounds_to_rest)
+            {
+                unit.sour_minion.resting = false;
+                unit.sour_minion.rounds_resting = 0;
+                unit.sour_minion.transform.GetChild(1).gameObject.SetActive(false);
+            }
+            else
+                unit.sour_minion.rounds_resting++;
+        }
+        if (unit.spicy_minion.resting)
+        {
+            if (unit.spicy_minion.rounds_resting >= unit.spicy_minion.required_rounds_to_rest)
+            {
+                unit.spicy_minion.resting = false;
+                unit.spicy_minion.rounds_resting = 0;
+                unit.spicy_minion.transform.GetChild(1).gameObject.SetActive(false);
+            }
+            else
+                unit.spicy_minion.rounds_resting++;
+        }
+        if (unit.bitter_minion.resting)
+        {
+            if (unit.bitter_minion.rounds_resting >= unit.bitter_minion.required_rounds_to_rest)
+            {
+                unit.bitter_minion.resting = false;
+                unit.bitter_minion.rounds_resting = 0;
+                unit.bitter_minion.transform.GetChild(1).gameObject.SetActive(false);
+            }
+            else
+                unit.bitter_minion.rounds_resting++;
+        }
+        if (unit.sweet_minion.resting)
+        {
+            if (unit.sweet_minion.rounds_resting >= unit.sweet_minion.required_rounds_to_rest)
+            {
+                unit.sweet_minion.resting = false;
+                unit.sweet_minion.rounds_resting = 0;
+                unit.sweet_minion.transform.GetChild(1).gameObject.SetActive(false);
+            }
+            else
+                unit.sweet_minion.rounds_resting++;
+        }
     }
 
     void EndBattle()

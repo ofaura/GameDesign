@@ -52,11 +52,15 @@ public class Adventurer : MonoBehaviour
 
         if (force_flavor)
             minion = (int)flavor;
-        // Make the selected minion go back to its position & apply resting condition
-        selected_minion.transform.position = minion_positions[(int)selected_minion.unitFlavor];
-        selected_minion.resting = true;
-        GameObject resting_go =selected_minion.transform.GetChild(1).gameObject;
-        resting_go.SetActive(true);
+
+        if (selected_minion != null)
+        {
+            // Make the selected minion go back to its position & apply resting condition
+            selected_minion.transform.position = minion_positions[(int)selected_minion.unitFlavor];
+            selected_minion.resting = true;
+            selected_minion.transform.GetChild(1).gameObject.SetActive(true);
+        }
+
 
         bool minion_selectable = false;
         while (minion_selectable == false)

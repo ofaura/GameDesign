@@ -38,23 +38,6 @@ public class Unit : MonoBehaviour
         RefreshUnitStats();
     }
 
-    //public bool TakeDamage(Unit enemy)
-    //{
-    //    //Actual Function we use to calculate damage
-    //    Advantadge modifierIndex = CalculateTypeAdvantage(enemy.unitFlavor);
-    //    float damage = ((2 * enemy.unitLevel / 10 + 2) * (enemy.attack / this.defense) / 50 + 2) * advantageMultiplier[(int)modifierIndex] * Random.Range(0.85f, 1.0f);
-
-    //    currentHP -= damage;
-    //    //float dmgReduction = 100f / (100f + (float)(defense * defense));
-
-    //    //currentHP -= (attack * dmgReduction);
-
-    //    if (currentHP <= 0)
-    //        return true;
-    //    else
-    //        return false;
-    //}
-
     public float CalculateTakenDamage(Unit enemy)
     {
         //Actual Function we use to calculate damage

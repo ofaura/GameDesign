@@ -393,8 +393,7 @@ MonoBehaviour:
   spicy_minion: {fileID: 1552185400}
   bitter_minion: {fileID: 222597940}
   sweet_minion: {fileID: 1576354249}
-  selected_minion: {fileID: 4687330559256596342, guid: 2552cfa23e683974c90265aae5499df4,
-    type: 3}
+  selected_minion: {fileID: 0}
   name: Enemy construct
   maxHP: 30
   currentHP: 0
@@ -3619,6 +3618,8 @@ MonoBehaviour:
     type: 3}
   playerBattleStation: {fileID: 1591787392}
   enemyBattleStation: {fileID: 985739971}
+  bot_vs_bot: 0
+  extracting_simulation_data: 0
   dialogueText: {fileID: 929080899}
   playerHUD: {fileID: 540239472}
   enemyHUD: {fileID: 450225244}

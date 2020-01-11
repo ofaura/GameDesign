@@ -10,6 +10,7 @@ public class PrepareCombat : MonoBehaviour
     public GameObject enemyBattleStation;
     public GameObject playerBattleStation;
 
+
     public Transform combatPosition;
 
     public GameObject[] initialPositions;
