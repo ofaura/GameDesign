@@ -67,6 +67,9 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
+        //We reveal the minion chosen by the enemy
+        enemyUnit.ChooseMinion();
+
         float damage_taken = enemyUnit.selected_minion.CalculateTakenDamage(playerUnit.selected_minion);
         enemyUnit.currentHP -= damage_taken;
 
@@ -108,7 +111,6 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        enemyUnit.ChooseMinion();
         dialogueText.text = enemyUnit.name + " attacks!";
 
         yield return new WaitForSeconds(1f);
