@@ -138,6 +138,64 @@ public class BattleSystem : MonoBehaviour
             state = BattleState.PLAYERTURN;
             PlayerTurn();
         }
+
+        //Add resting rounds for minions
+        if (enemyUnit.salty_minion.resting)
+        {
+            if (enemyUnit.salty_minion.rounds_resting >= enemyUnit.salty_minion.required_rounds_to_rest)
+            {
+                enemyUnit.salty_minion.resting = false;
+                enemyUnit.salty_minion.rounds_resting = 0;
+                enemyUnit.salty_minion.transform.GetChild(1).gameObject.SetActive(false);
+            }
+            else
+                enemyUnit.salty_minion.rounds_resting++;
+        }
+        if (enemyUnit.sour_minion.resting)
+        {
+            if (enemyUnit.sour_minion.rounds_resting >= enemyUnit.sour_minion.required_rounds_to_rest)
+            {
+                enemyUnit.sour_minion.resting = false;
+                enemyUnit.sour_minion.rounds_resting = 0;
+                enemyUnit.sour_minion.transform.GetChild(1).gameObject.SetActive(false);
+            }
+            else
+                enemyUnit.sour_minion.rounds_resting++;
+        }
+        if (enemyUnit.spicy_minion.resting)
+        {
+            if (enemyUnit.spicy_minion.rounds_resting >= enemyUnit.spicy_minion.required_rounds_to_rest)
+            {
+                enemyUnit.spicy_minion.resting = false;
+                enemyUnit.spicy_minion.rounds_resting = 0;
+                enemyUnit.spicy_minion.transform.GetChild(1).gameObject.SetActive(false);
+            }
+            else
+                enemyUnit.spicy_minion.rounds_resting++;
+        }
+        if (enemyUnit.bitter_minion.resting)
+        {
+            if (enemyUnit.bitter_minion.rounds_resting >= enemyUnit.bitter_minion.required_rounds_to_rest)
+            {
+                enemyUnit.bitter_minion.resting = false;
+                enemyUnit.bitter_minion.rounds_resting = 0;
+                enemyUnit.bitter_minion.transform.GetChild(1).gameObject.SetActive(false);
+            }
+            else
+                enemyUnit.bitter_minion.rounds_resting++;
+        }
+        if (enemyUnit.sweet_minion.resting)
+        {
+            if (enemyUnit.sweet_minion.rounds_resting >= enemyUnit.sweet_minion.required_rounds_to_rest)
+            {
+                enemyUnit.sweet_minion.resting = false;
+                enemyUnit.sweet_minion.rounds_resting = 0;
+                enemyUnit.sweet_minion.transform.GetChild(1).gameObject.SetActive(false);
+            }
+            else
+                enemyUnit.sweet_minion.rounds_resting++;
+        }
+
     }
 
     void EndBattle()

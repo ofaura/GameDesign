@@ -28,6 +28,8 @@ public class Unit : MonoBehaviour
     public float maxHP;
     public float currentHP;
     public bool resting = false;
+    public uint rounds_resting = 0;
+    public uint required_rounds_to_rest = 2;
 
     float[] advantageMultiplier = new float[] { 0.75f, 1.0f, 1.5f };
 

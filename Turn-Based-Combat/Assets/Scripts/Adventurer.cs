@@ -46,34 +46,67 @@ public class Adventurer : MonoBehaviour
         sweet_minion.ChangeLevel(LvL);
     }
 
-    public void ChooseMinion()
+    public void ChooseMinion(bool force_flavor = false, Unit.Flavor flavor = Unit.Flavor.SALTY)
     {
-        int minion = Random.Range(0, 4);
+        int minion = Random.Range(0, 5);
 
-        // Make the selected minion go back to its position
+        if (force_flavor)
+            minion = (int)flavor;
+        // Make the selected minion go back to its position & apply resting condition
         selected_minion.transform.position = minion_positions[(int)selected_minion.unitFlavor];
+        selected_minion.resting = true;
+        GameObject resting_go =selected_minion.transform.GetChild(1).gameObject;
+        resting_go.SetActive(true);
 
-        switch ((Unit.Flavor)minion)
+        bool minion_selectable = false;
+        while (minion_selectable == false)
         {
-            case Unit.Flavor.SALTY:
-                selected_minion = salty_minion;
-            break;
+            switch ((Unit.Flavor)minion)
+            {
+                case Unit.Flavor.SALTY:
+                    if (salty_minion.resting == false)
+                    {
+                        selected_minion = salty_minion;
+                        minion_selectable = true;
+                    }
+                    break;
 
-            case Unit.Flavor.SOUR:
-                selected_minion = sour_minion;
-            break;
+                case Unit.Flavor.SOUR:
+                    if (sour_minion.resting == false)
+                    { 
+                        selected_minion = sour_minion;
+                        minion_selectable = true;
+                    }
+                    break;
 
-            case Unit.Flavor.SPICY:
-                selected_minion = spicy_minion;
-            break;
+                case Unit.Flavor.SPICY:
+                    if (spicy_minion.resting == false)
+                    {
+                        selected_minion = spicy_minion;
+                        minion_selectable = true;
+                    }
+                        break;
 
-            case Unit.Flavor.BITTER:
-                selected_minion = bitter_minion;
-            break;
+                case Unit.Flavor.BITTER:
+                    if (bitter_minion.resting == false)
+                    {
+                        selected_minion = bitter_minion;
+                        minion_selectable = true;
+                    }
+                        break;
 
-            case Unit.Flavor.SWEET:
-                selected_minion = sweet_minion;
-            break;
+                case Unit.Flavor.SWEET:
+                    if (sweet_minion.resting == false)
+                    {
+                        selected_minion = sweet_minion;
+                        minion_selectable = true;
+                    }
+                        break;
+            }
+
+            //We rerandomize the number, if the while were to continue we will test with that number,
+            // if we have already selected a minion changing the random number here is trivial and won't affect the outcome
+            minion = Random.Range(0,5);
         }
 
         selected_minion.transform.position = BattleStation.transform.position + offset;
