@@ -376,6 +376,9 @@ public class BattleSystem : MonoBehaviour
             playerUnit.RestMinion();
             enemyUnit.RestMinion();
 
+            playerUnit.selected_minion = null;
+            enemyUnit.selected_minion = null;
+
             playerUnit.salty_minion.resting = false;
             playerUnit.salty_minion.rounds_resting = 0;
             playerUnit.salty_minion.transform.GetChild(1).gameObject.SetActive(false);
