@@ -46,7 +46,30 @@ public class Adventurer : MonoBehaviour
         sweet_minion.ChangeLevel(LvL);
     }
 
-    public void ChooseMinion(bool force_flavor = false, Unit.Flavor flavor = Unit.Flavor.SALTY)
+    public void RestMinion()
+    {
+        if (selected_minion != null)
+        {
+            // Make the selected minion go back to its position & apply resting condition
+            int index = 0;
+            if (selected_minion.unitName == "Salty")
+                index = 0;
+            else if (selected_minion.unitName == "Sweet")
+                index = 4;
+            else if (selected_minion.unitName == "Sour")
+                index = 1;
+            else if (selected_minion.unitName == "Spicy")
+                index = 2;
+            else if (selected_minion.unitName == "Bitter")
+                index = 3;
+
+            selected_minion.transform.position = minion_positions[index];
+            selected_minion.resting = true;
+            selected_minion.transform.GetChild(1).gameObject.SetActive(true);
+        }
+    }
+
+    public void ChooseMinion(bool player = false,  bool force_flavor = false, Unit.Flavor flavor = Unit.Flavor.SALTY)
     {
         int minion = Random.Range(0, 5);
 
@@ -56,11 +79,11 @@ public class Adventurer : MonoBehaviour
         if (selected_minion != null)
         {
             // Make the selected minion go back to its position & apply resting condition
-            selected_minion.transform.position = minion_positions[(int)selected_minion.unitFlavor];
+            if (!player)
+                selected_minion.transform.position = minion_positions[(int)selected_minion.unitFlavor];
             selected_minion.resting = true;
             selected_minion.transform.GetChild(1).gameObject.SetActive(true);
         }
-
 
         bool minion_selectable = false;
         while (minion_selectable == false)
