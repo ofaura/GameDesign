@@ -49,6 +49,7 @@ public class BattleSystem : MonoBehaviour
         PrepareCombat minion = tmp.GetComponent<PrepareCombat>();
         index = minion.index;
 
+        playerAttack = false;
         state = BattleState.START;
         StartCoroutine(SetupBattle());
     }
