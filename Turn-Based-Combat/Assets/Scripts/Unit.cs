@@ -42,7 +42,7 @@ public class Unit : MonoBehaviour
     {
         //Actual Function we use to calculate damage
         Advantadge modifierIndex = CalculateTypeAdvantage(enemy.unitFlavor);
-        float damage = ((2 * enemy.unitLevel / 10 + 2) * (enemy.attack / this.defense) / 50 + 2) * advantageMultiplier[(int)modifierIndex] * Random.Range(0.85f, 1.0f);
+        float damage = ((2 * enemy.unitLevel / 10 + 2) * 5 * (enemy.attack / this.defense) / 50 + 2) * advantageMultiplier[(int)modifierIndex] * Random.Range(0.85f, 1.0f);
 
         return damage;
     }
